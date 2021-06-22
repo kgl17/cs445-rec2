@@ -15,6 +15,7 @@ public class LongestCommonSubsequence {
 
         // TODO: Create reference a variable named possibleSubsequences for storing the bag
         // and assign it a value of null
+        BagInterface<String> possibleSubsequences = null;
 
         if (args.length != 2) {
             System.out.println("Type two strings as command-line arguments. Use --args \"first second\" if using gradle.");
@@ -25,12 +26,28 @@ public class LongestCommonSubsequence {
         String second = args[1];
 
         // TODO: Add code here to create the bag and add the initial string
+        possibleSubsequences = new ArrayBag(); //SomeBag
+        possibleSubsequences.add(first);
 
         System.out.println("The string bag contains: " + possibleSubsequences);
         String longest = new String("");
 
         // TODO: Add code here to implement the longest common subsequence
         // algorithm
+        while (!possibleSubsequences.isEmpty()){
+            String test = possibleSubsequences.remove();
+            if (test.length() > longest.length()){
+                if (isSubsequence(test, second)){
+                    longest = test;
+                } else if (test.length() - 1 > longest.length()){
+                    for (int i = 0; i < test.length(); i++){
+                        // ap p le
+                        String next = test.substring(0, i) + test.substring(i+1);
+                        possibleSubsequences.add(next);
+                    }
+                }
+            }
+        }
 
         System.out.println("Longest common subsequence:");
         System.out.println(longest);
